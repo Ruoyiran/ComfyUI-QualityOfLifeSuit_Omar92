@@ -1,0 +1,6 @@
+﻿__pycache__
+config.json
+nsp_pantry.json
+output
+.DS_Store
+.idea/
