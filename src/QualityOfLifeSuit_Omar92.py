@@ -357,7 +357,6 @@ class openAi_chat_completion_O:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "openai": ("OPENAI",),
                 # "model": ("STRING", {"multiline": False, "default": "gpt-3.5-turbo"}),
                 "model": (get_gpt_models(), {"default": "gpt-3.5-turbo"}),
                 "messages": ("OPENAI_CHAT_MESSAGES",),
@@ -374,7 +373,7 @@ class openAi_chat_completion_O:
     # Define the category for the node
     CATEGORY = "O/OpenAI/Advanced/ChatGPT"
 
-    def fun(self, openai, model, messages, seed):
+    def fun(self, model, messages, seed):
         # Create a chat completion using the OpenAI module
         completion = chat_completion_with_messages(messages["messages"], model)
         print(completion)
@@ -452,7 +451,6 @@ class openAi_Image_create_O:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "openai": ("OPENAI",),
                 "prompt": ("STRING", {"multiline": True}),
                 "number": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
                 "size": (["256x256", "512x512", "1024x1024"], {"default": "256x256"}),
@@ -469,9 +467,9 @@ class openAi_Image_create_O:
     # Define the category for the node
     CATEGORY = "O/OpenAI/Advanced/Image"
 
-    def fun(self, openai, prompt, number, size, seed):
+    def fun(self, prompt, number, size, seed):
         # Create a chat completion using the OpenAI module
-        openai = openai["openai"]
+        import openai
         prompt = prompt
         number = 1
 
@@ -511,7 +509,6 @@ class openAi_Image_Edit_O:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "openai": ("OPENAI",),
                 "image": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True}),
                 "number": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
@@ -529,9 +526,9 @@ class openAi_Image_Edit_O:
     # Define the category for the node
     CATEGORY = "O/OpenAI/Advanced/Image"
 
-    def fun(self, openai, image, prompt, number, size, seed):
+    def fun(self, image, prompt, number, size, seed):
         # Create a chat completion using the OpenAI module
-        openai = openai["openai"]
+        import openai
         prompt = prompt
         number = 1
 
@@ -596,7 +593,6 @@ class openAi_Image_variation_O:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "openai": ("OPENAI",),
                 "image": ("IMAGE",),
                 "number": ("INT", {"default": 1, "min": 1, "max": 10, "step": 1}),
                 "size": (["256x256", "512x512", "1024x1024"], {"default": "256x256"}),
@@ -613,9 +609,9 @@ class openAi_Image_variation_O:
     # Define the category for the node
     CATEGORY = "O/OpenAI/Advanced/Image"
 
-    def fun(self, openai, image, number, size, seed):
+    def fun(self, image, number, size, seed):
         # Create a chat completion using the OpenAI module
-        openai = openai["openai"]
+        import openai
         number = 1
 
         # Convert PyTorch tensor to NumPy array
