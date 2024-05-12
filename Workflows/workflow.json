@@ -1,0 +1,566 @@
+{
+  "last_node_id": 103,
+  "last_link_id": 108,
+  "nodes": [
+    {
+      "id": 88,
+      "type": "CLIPTextEncode",
+      "pos": [
+        1563,
+        1410
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 96,
+          "label": "clip",
+          "slot_index": 0
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 94,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            100
+          ],
+          "shape": 3,
+          "label": "CONDITIONING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 99,
+      "type": "EmptyLatentImage",
+      "pos": [
+        1600,
+        2109
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            98
+          ],
+          "shape": 3,
+          "label": "LATENT"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
+    },
+    {
+      "id": 97,
+      "type": "CLIPTextEncode",
+      "pos": [
+        1576,
+        1710
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 106,
+          "label": "clip"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            101
+          ],
+          "shape": 3,
+          "label": "CONDITIONING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 98,
+      "type": "KSampler",
+      "pos": [
+        2305,
+        1422
+      ],
+      "size": {
+        "0": 315,
+        "1": 262
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 105,
+          "label": "model"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 100,
+          "label": "positive"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 101,
+          "label": "negative"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 98,
+          "label": "latent_image",
+          "slot_index": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            102
+          ],
+          "shape": 3,
+          "label": "LATENT",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        404344459643530,
+        "randomize",
+        20,
+        7,
+        "dpmpp_sde_gpu",
+        "normal",
+        1
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 94,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        1033,
+        1206
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            105
+          ],
+          "shape": 3,
+          "label": "MODEL",
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            96,
+            106
+          ],
+          "shape": 3,
+          "label": "CLIP",
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            104
+          ],
+          "shape": 3,
+          "label": "VAE",
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "sd_xl_base_1.0.safetensors"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 100,
+      "type": "VAEDecode",
+      "pos": [
+        2635,
+        1450
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 102,
+          "label": "samples"
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 104,
+          "label": "vae"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            103
+          ],
+          "shape": 3,
+          "label": "IMAGE",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 101,
+      "type": "PreviewImage",
+      "pos": [
+        2847,
+        1420
+      ],
+      "size": [
+        463.12420410228333,
+        656.7562490917799
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 103,
+          "label": "images"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 90,
+      "type": "Concat Text _O",
+      "pos": [
+        256,
+        1442
+      ],
+      "size": [
+        500.21558300853394,
+        300.3117287670732
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            93
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Concat Text _O"
+      },
+      "widgets_values": [
+        "Act as a creative problem solver that answers in prompts.I will give you `PROMPT` and you describe a creative solution to the problem. Use terse concise terms to describe the answer. Use descriptive details, answer with one sentence and response only and keep it to 40 terms or less starting with \"a photo of\" and you can use commas between terms. Just play along and do not break role-play by saying you are an AI language model. Just guess at the answer.",
+        "Look what I found outside of my house! It's scary!",
+        "PROMPT="
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 93,
+      "type": "ChatGPT Simple _O",
+      "pos": [
+        802,
+        1442
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 93,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            94,
+            108
+          ],
+          "shape": 3,
+          "label": "STRING",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ChatGPT Simple _O"
+      },
+      "widgets_values": [
+        "",
+        "gpt-3.5-turbo",
+        "description",
+        371238280643022,
+        "randomize"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 103,
+      "type": "Debug Text _O",
+      "pos": [
+        1244,
+        1810
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 108,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Debug Text _O"
+      },
+      "widgets_values": [
+        "",
+        "ChatGPT Response"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    }
+  ],
+  "links": [
+    [
+      93,
+      90,
+      0,
+      93,
+      0,
+      "STRING"
+    ],
+    [
+      94,
+      93,
+      0,
+      88,
+      1,
+      "STRING"
+    ],
+    [
+      96,
+      94,
+      1,
+      88,
+      0,
+      "CLIP"
+    ],
+    [
+      98,
+      99,
+      0,
+      98,
+      3,
+      "LATENT"
+    ],
+    [
+      100,
+      88,
+      0,
+      98,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      101,
+      97,
+      0,
+      98,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      102,
+      98,
+      0,
+      100,
+      0,
+      "LATENT"
+    ],
+    [
+      103,
+      100,
+      0,
+      101,
+      0,
+      "IMAGE"
+    ],
+    [
+      104,
+      94,
+      2,
+      100,
+      1,
+      "VAE"
+    ],
+    [
+      105,
+      94,
+      0,
+      98,
+      0,
+      "MODEL"
+    ],
+    [
+      106,
+      94,
+      1,
+      97,
+      0,
+      "CLIP"
+    ],
+    [
+      108,
+      93,
+      0,
+      103,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7513148009015781,
+      "offset": [
+        -1319.0874021613668,
+        -997.1062446972488
+      ]
+    }
+  },
+  "version": 0.4
+}
