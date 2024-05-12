@@ -972,9 +972,7 @@ class Text2Image_O:
         # Initialize the drawing context
         image = Image.new('RGBA', (1, 1), color=background_color)
         draw = ImageDraw.Draw(image)
-
-        # Get the size of the text
-        text_width, text_height = draw.textsize(text, font=font)
+        _, _, text_width, text_height = draw.textbbox((0, 0), text=text, font=font)
 
         # Set the dimensions of the image
         if expand == "true":
